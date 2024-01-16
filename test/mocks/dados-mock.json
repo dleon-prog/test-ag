@@ -1,0 +1,19 @@
+{
+    "produtorData": {
+      "cpfCnpj": "12345678901",
+      "nomeProdutor": "João Silva",
+      "nomeFazenda": "Fazenda Feliz",
+      "cidade": "Cidade A",
+      "estado": "UF",
+      "areaTotalHectares": 100,
+      "areaAgricultavelHectares": 80,
+      "areaVegetacaoHectares": 10,
+      "areaUrbanizadaHectares": 10
+    },
+    "culturasPlantadas": [
+      "Soja",
+      "Milho",
+      "Café"
+    ]
+  }
+  
