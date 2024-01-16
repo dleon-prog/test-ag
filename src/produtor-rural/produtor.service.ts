@@ -56,4 +56,13 @@ export class ProdutorService {
   async delete(id: number): Promise<void> {
     await this.produtorRepository.delete(id);
   }
+
+  async getTotalFazendas(): Promise<number> {
+    return this.produtorRepository.count();
+  }
+
+  async getTotalArea(): Promise<number> {
+    const fazendas = await this.produtorRepository.find();
+    return fazendas.reduce((total, fazenda) => total + fazenda.areaTotalHectares, 0);
+  }
 }

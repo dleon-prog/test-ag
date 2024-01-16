@@ -31,4 +31,16 @@ export class ProdutorController {
   async delete(@Param('id') id: number): Promise<void> {
     return this.produtorService.delete(id);
   }
+
+  @Get('total-fazendas')
+  async getCount(): Promise<{ totalFazendas: number }> {
+    const totalFazendas = await this.produtorService.getTotalFazendas();
+    return { totalFazendas };
+  }
+
+  @Get('total-area')
+  async getTotalArea(): Promise<{ totalAreaHectares: number }> {
+    const totalAreaHectares = await this.produtorService.getTotalArea();
+    return { totalAreaHectares };
+  }
 }
