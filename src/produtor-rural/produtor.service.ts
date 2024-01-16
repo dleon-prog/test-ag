@@ -18,7 +18,7 @@ export class ProdutorService {
   }
 
   async findById(id: number): Promise<Produtor> {
-    const produtor = await this.produtorRepository.findOne(id);
+    const produtor = await this.produtorRepository.findOneBy({id: id})
     if (!produtor) {
       throw new NotFoundException('Produtor não encontrado');
     }
@@ -50,7 +50,7 @@ export class ProdutorService {
 
   async update(id: number, produtorData: Partial<Produtor>): Promise<Produtor> {
     await this.produtorRepository.update(id, produtorData);
-    return await this.produtorRepository.findOne(id);
+    return await this.produtorRepository.findOneBy({id: id});
   }
 
   async delete(id: number): Promise<void> {
