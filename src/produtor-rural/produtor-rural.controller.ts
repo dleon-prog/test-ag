@@ -1,15 +1,22 @@
-import { Controller, Get, Param, Post, Body, Put, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Post,
+  Body,
+  Put,
+  Delete,
+} from '@nestjs/common';
 import { ProdutorService } from './produtor.service';
 import { Produtor } from './produtor.entity';
-import { Cultura } from './cultura.entity';
 
 @Controller('produtor')
 export class ProdutorController {
   constructor(private readonly produtorService: ProdutorService) {}
 
   @Post()
-  async create(@Body() produtorData: Partial<Produtor>, @Body('culturasPlantadas') culturasPlantadas: Cultura[]): Promise<Produtor> {
-    return this.produtorService.create(produtorData, culturasPlantadas);
+  async create(@Body() produtorData: Partial<Produtor>): Promise<Produtor> {
+    return this.produtorService.create(produtorData);
   }
 
   @Get()
@@ -23,7 +30,10 @@ export class ProdutorController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: number, @Body() produtorData: Partial<Produtor>, @Body('culturasPlantadas') culturasPlantadas: Cultura[]): Promise<Produtor> {
+  async update(
+    @Param('id') id: number,
+    @Body() produtorData: Partial<Produtor>,
+  ): Promise<Produtor> {
     return this.produtorService.update(id, produtorData);
   }
 

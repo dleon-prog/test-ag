@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Produtor } from './produtor.entity';
 import { ValidationService } from '../shared/validation.service';
-import { Cultura } from './cultura.entity';
 
 @Injectable()
 export class ProdutorService {
@@ -25,10 +24,7 @@ export class ProdutorService {
     return produtor;
   }
 
-  async create(
-    produtorData: Partial<Produtor>,
-    culturasPlantadas: Cultura[],
-  ): Promise<Produtor> {
+  async create(produtorData: Partial<Produtor>): Promise<Produtor> {
     const {
       cpfCnpj,
       areaTotalHectares,
@@ -67,7 +63,6 @@ export class ProdutorService {
 
     const produtor = this.produtorRepository.create({
       ...produtorData,
-      culturasPlantadas,
     });
     return await this.produtorRepository.save(produtor);
   }

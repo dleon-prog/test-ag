@@ -7,5 +7,4 @@ export class Cultura {
 
   @Column()
   nome: string;
-
 }
