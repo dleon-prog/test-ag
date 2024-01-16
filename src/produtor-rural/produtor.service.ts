@@ -12,45 +12,69 @@ export class ProdutorService {
     private produtorRepository: Repository<Produtor>,
     private validacaoService: ValidationService,
   ) {}
-  
+
   async findAll(): Promise<Produtor[]> {
     return await this.produtorRepository.find();
   }
 
   async findById(id: number): Promise<Produtor> {
-    const produtor = await this.produtorRepository.findOneBy({id: id})
+    const produtor = await this.produtorRepository.findOneBy({ id: id });
     if (!produtor) {
       throw new NotFoundException('Produtor não encontrado');
     }
     return produtor;
   }
 
-  async create(produtorData: Partial<Produtor>, culturasPlantadas: Cultura[]): Promise<Produtor> {
-    const { cpfCnpj, areaTotalHectares, areaAgricultavelHectares, areaUrbanizadaHectares } = produtorData;
+  async create(
+    produtorData: Partial<Produtor>,
+    culturasPlantadas: Cultura[],
+  ): Promise<Produtor> {
+    const {
+      cpfCnpj,
+      areaTotalHectares,
+      areaAgricultavelHectares,
+      areaUrbanizadaHectares,
+    } = produtorData;
 
     if (cpfCnpj) {
-      if (cpfCnpj.length === 11 && !this.validacaoService.validateCpf(cpfCnpj)) {
+      if (
+        cpfCnpj.length === 11 &&
+        !this.validacaoService.validateCpf(cpfCnpj)
+      ) {
         throw new NotFoundException('CPF inválido');
-      } else if (cpfCnpj.length === 14 && !this.validacaoService.validateCnpj(cpfCnpj)) {
+      } else if (
+        cpfCnpj.length === 14 &&
+        !this.validacaoService.validateCnpj(cpfCnpj)
+      ) {
         throw new NotFoundException('CNPJ inválido');
       }
     }
 
-    if (areaTotalHectares && areaAgricultavelHectares && areaUrbanizadaHectares) {
-      const somaAreaAgricultavelUrbanizada = areaAgricultavelHectares + areaUrbanizadaHectares;
+    if (
+      areaTotalHectares &&
+      areaAgricultavelHectares &&
+      areaUrbanizadaHectares
+    ) {
+      const somaAreaAgricultavelUrbanizada =
+        areaAgricultavelHectares + areaUrbanizadaHectares;
 
       if (somaAreaAgricultavelUrbanizada > areaTotalHectares) {
-        throw new NotFoundException('A soma da área agrícola e urbanizada não pode ser maior que a área total da fazenda');
+        throw new NotFoundException(
+          'A soma da área agrícola e urbanizada não pode ser maior que a área total da fazenda',
+        );
       }
     }
 
-    const produtor = this.produtorRepository.create({ ...produtorData, culturasPlantadas });
+    const produtor = this.produtorRepository.create({
+      ...produtorData,
+      culturasPlantadas,
+    });
     return await this.produtorRepository.save(produtor);
   }
 
   async update(id: number, produtorData: Partial<Produtor>): Promise<Produtor> {
     await this.produtorRepository.update(id, produtorData);
-    return await this.produtorRepository.findOneBy({id: id});
+    return await this.produtorRepository.findOneBy({ id: id });
   }
 
   async delete(id: number): Promise<void> {
@@ -63,6 +87,9 @@ export class ProdutorService {
 
   async getTotalArea(): Promise<number> {
     const fazendas = await this.produtorRepository.find();
-    return fazendas.reduce((total, fazenda) => total + fazenda.areaTotalHectares, 0);
+    return fazendas.reduce(
+      (total, fazenda) => total + fazenda.areaTotalHectares,
+      0,
+    );
   }
 }

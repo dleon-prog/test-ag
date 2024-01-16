@@ -4,7 +4,7 @@ import { Produtor } from './produtor-rural/produtor.entity';
 import { ProdutorService } from './produtor-rural/produtor.service';
 import { ProdutorController } from './produtor-rural/produtor-rural.controller';
 import { ProdutorRepository } from './produtor-rural/produtor.repository';
-
+import { ValidationService } from './shared/validation.service';
 
 @Module({
   imports: [
@@ -21,6 +21,6 @@ import { ProdutorRepository } from './produtor-rural/produtor.repository';
     TypeOrmModule.forFeature([Produtor]),
   ],
   controllers: [ProdutorController],
-  providers: [ProdutorService, ProdutorRepository],
+  providers: [ProdutorService, ProdutorRepository, ValidationService],
 })
 export class AppModule {}
