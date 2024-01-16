@@ -25,6 +25,8 @@
 ## Description
 
 ## Olá pessoal terminei agora o teste ok tentei fazer o mais completo de tudo com testes unitarios obrigado !!
+# tive que criar uma outra conta no github pq a antiga deu problema de dois fatores e não consegui recuperar mas caso queiram ver 
+# a outra conta é essa aqui https://github.com/dleon-nodejs
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
